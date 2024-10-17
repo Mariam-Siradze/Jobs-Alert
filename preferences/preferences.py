@@ -3,7 +3,8 @@ import schedule
 import time
 from services.sms_sender import send_sms  
 from services.mail_sender import send_email_notification
-from auth.auth import login, signup
+from auth.users import UserManager
+from auth.app_auth import AuthenticationApp
 from dataclasses import dataclass, field
 from .enums import NotificationType, Website, Frequency  
 
@@ -84,9 +85,9 @@ class JobPreferences:
 def handle_auth():
     option = st.selectbox("Login or Signup", ["Login", "Signup"], key="auth_selectbox")
     if option == "Login":
-        login()  
+        AuthenticationApp.login()  
     elif option == "Signup":
-        signup()
+        AuthenticationApp.signup()
 
 def handle_job_preferences():
     job_pref = JobPreferences()
