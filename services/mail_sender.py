@@ -9,9 +9,12 @@ load_dotenv()
 
 def send_email_notification(job_type, num_jobs, website, recipient_email, found_jobs):
     sender_email = os.getenv('SENDER_EMAIL')
-
+    formatted = mail_format(found_jobs)
     subject = f"New {job_type} Jobs Notification"
-    body = f"Here are {num_jobs} new {job_type} jobs from {website}." + mail_format(found_jobs)
+    if formatted:
+        body = f"Here are {num_jobs} new {job_type} jobs from {website}." + formatted
+    else:
+        body = 'There were no new job offers found!'
 
     message = MIMEMultipart()
     message["From"] = sender_email
