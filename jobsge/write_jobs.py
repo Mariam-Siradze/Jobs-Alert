@@ -7,6 +7,8 @@ import logging
 from dotenv import load_dotenv
 from db.db_connection import get_connection
 from utils.logging_config import logger
+from utils.logging_config import logger
+from db.db_connection import get_connection
 
 load_dotenv()
 
@@ -15,6 +17,7 @@ class ManageJobs:
         self.last_index = 0
 
     def select_query(self, conn, cur):
+        '''Selects all of the columns'''
         with conn:
             cur.execute(f'SELECT * FROM {os.getenv('JOBS_TABLE')}')
             data = cur.fetchall()
