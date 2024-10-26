@@ -5,6 +5,8 @@ import psycopg2
 import os
 import logging
 from dotenv import load_dotenv
+from db.db_connection import get_connection
+from utils.logging_config import logger
 from utils.logging_config import logger
 from db.db_connection import get_connection
 
@@ -39,7 +41,7 @@ class ManageJobs:
         conn = get_connection()
         cur = conn.cursor()
         self.create_jobs_table(conn, cur)
-
+        
         for job in new_jobs:
             with conn:
                 cur.execute(f'INSERT INTO {os.getenv('JOBS_TABLE')}(position, company, published_date, deadline, details)' + 
